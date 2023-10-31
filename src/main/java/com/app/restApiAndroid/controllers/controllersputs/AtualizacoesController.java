@@ -1,5 +1,6 @@
 package com.app.restApiAndroid.controllers.controllersputs;
 
+import com.app.restApiAndroid.models.Mensagem;
 import com.app.restApiAndroid.models.dots.PrecoDTO;
 import com.app.restApiAndroid.models.dots.RegisterDTO;
 import com.app.restApiAndroid.models.empresa.Empresa;
@@ -41,10 +42,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaUsuarioToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarUserToId(@RequestParam String id, @RequestBody @Validated RegisterDTO data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarUserToId(id, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Atualizar o usuário pelo nome do login app super price",
@@ -60,10 +63,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaUsuarioToLogin}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarUserToLogin(@RequestParam String login, @RequestBody @Validated RegisterDTO data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarUserToLogin(login, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -81,10 +86,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaProdutoToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarProdutoToId(@RequestParam String id, @RequestBody @Validated Produto data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarProdutoToId(id, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Atualizar o produto pelo código de barras app super price",
@@ -100,10 +107,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaProdutoToGtin}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarProdutoToGtin(@RequestParam String gtin, @RequestBody @Validated Produto data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarProdutoToGtin(gtin, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -121,10 +130,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaEmpresaToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarEmpresaToId(@RequestParam String id, @RequestBody @Validated Empresa data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarEmpresaToId(id, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Atualizar empresa pelo cnpj app super price",
@@ -140,10 +151,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaEmpresaToCnpj}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarEmpresaToCnpj(@RequestParam String cnpj, @RequestBody @Validated Empresa data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarEmpresaToCnpj(cnpj, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Atualizar empresa pelo nome app super price",
@@ -159,10 +172,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaEmpresaToNome}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarEmpresaToNome(@RequestParam String nome, @RequestBody @Validated Empresa data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarEmpresaToNome(nome, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Atualizar empresa pelo nome fantasia app super price",
@@ -178,10 +193,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaEmpresaToFantasia}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarEmpresaToFantasia(@RequestParam String fantasia, @RequestBody @Validated Empresa data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarEmpresaToFantasia(fantasia, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -199,10 +216,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaPrecoToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarUserToId(@RequestParam String id, @RequestBody @Validated PrecoDTO data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarPrecoToId(id, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Atualizar o preço pelo Id do produto e Id da empresa app super price",
@@ -218,10 +237,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaPrecoToIdProEmp}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarPrecoToIdProEmp(@RequestParam String idProduto,@RequestParam String idEmpresa, @RequestBody @Validated PrecoDTO data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarPrecoToIdProEmp(idProduto,idEmpresa, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Atualizar o preço pelo Id do preço, Id do produto e Id da empresa app super price",
@@ -237,10 +258,12 @@ public class AtualizacoesController {
             })
     @PutMapping(value = "${route.atualizaPrecoToIdPreProEmp}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity atualizarPrecoToIdPreProEmp(@RequestParam String idPreco,@RequestParam String idProduto,@RequestParam String idEmpresa, @RequestBody @Validated PrecoDTO data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return atualizacoesService.atualizarPrecoToIdPreProEmp(idPreco,idProduto,idEmpresa, data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

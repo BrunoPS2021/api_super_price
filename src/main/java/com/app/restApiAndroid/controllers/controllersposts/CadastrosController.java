@@ -1,5 +1,6 @@
 package com.app.restApiAndroid.controllers.controllersposts;
 
+import com.app.restApiAndroid.models.Mensagem;
 import com.app.restApiAndroid.models.dots.PrecoDTO;
 import com.app.restApiAndroid.models.dots.RegisterDTO;
 import com.app.restApiAndroid.models.empresa.Empresa;
@@ -41,10 +42,12 @@ public class CadastrosController {
             })
     @PostMapping(value = "${route.cadastroUsuario}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity resgister(@RequestBody @Validated RegisterDTO data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return cadastrosService.usuario(data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -62,10 +65,12 @@ public class CadastrosController {
             })
     @PostMapping(value = "${route.cadastroProduto}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity produto(@RequestBody @Validated Produto data){
+        Mensagem mensagem = new Mensagem();
         try {
             return cadastrosService.produto(data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -83,10 +88,12 @@ public class CadastrosController {
             })
     @PostMapping(value = "${route.cadastroEmpresa}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity empresa(@RequestBody @Validated Empresa data){
+        Mensagem mensagem = new Mensagem();
         try {
             return cadastrosService.empresa(data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -104,10 +111,12 @@ public class CadastrosController {
             })
     @PostMapping(value = "${route.cadastroPreco}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity preco(@RequestBody @Validated PrecoDTO data) {
+        Mensagem mensagem = new Mensagem();
         try {
             return cadastrosService.preco(data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

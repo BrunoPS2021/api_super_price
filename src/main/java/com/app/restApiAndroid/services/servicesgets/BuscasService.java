@@ -1,5 +1,6 @@
 package com.app.restApiAndroid.services.servicesgets;
 
+import com.app.restApiAndroid.models.Mensagem;
 import com.app.restApiAndroid.models.apisExternas.empresa.EmpresaApiExterna;
 import com.app.restApiAndroid.models.apisExternas.produto.ProdutoApiExterna;
 import com.app.restApiAndroid.models.empresa.Empresa;
@@ -29,91 +30,127 @@ public class BuscasService {
     private UsuarioRepository usuarioRepository;
     @Autowired
     private DadosUsuarioRepository dadosUsuarioRepository;
+
     public ResponseEntity listUser() {
+        Mensagem mensagem = new Mensagem();
+        var listUsers = dadosUsuarioRepository.findAll();
 
-        var listUsers =  dadosUsuarioRepository.findAll();
-
-        if(listUsers.isEmpty())
-            return new ResponseEntity("Lista usuários vazia!",HttpStatus.NOT_FOUND);
+        if (listUsers.isEmpty()) {
+            mensagem.setMessage("Lista usuários vazia!");
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity<>(listUsers, HttpStatus.OK);
     }
-    public ResponseEntity listUserToName(String name){
 
-        if(name.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Nome não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity listUserToName(String name) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (name.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Nome não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var user = dadosUsuarioRepository.findAllByNameContaining(removerAcentosEspacoBranco(
                 name.toUpperCase()));
 
-        if(user.isEmpty())
-            return new ResponseEntity(String.format("O usuário %s não existe!",name.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (user.isEmpty()) {
+            mensagem.setMessage(String.format("O usuário %s não existe!", name.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-    public ResponseEntity userToName(String name){
 
-        if(name.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Nome não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity userToName(String name) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (name.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Nome não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var user = dadosUsuarioRepository.findByName(removerAcentosEspacoBranco(name.toUpperCase()));
 
-        if(user == null)
-            return new ResponseEntity(String.format("O usuário %s não existe!",name.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (user == null) {
+            mensagem.setMessage(String.format("O usuário %s não existe!", name.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-    public ResponseEntity userToId(String id){
 
-        if(id.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity userToId(String id) {
+
+        Mensagem mensagem = new Mensagem();
+
+        if (id.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var user = dadosUsuarioRepository.findAllByUserId(id);
 
-        if(user.isEmpty())
-            return new ResponseEntity(String.format("O usuário com id %s não existe!",id.toUpperCase()),HttpStatus.NOT_FOUND);
+        if (user.isEmpty()) {
+            mensagem.setMessage(String.format("O usuário com id %s não existe!", id.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-    public ResponseEntity userToLogin(String login){
-        if(login.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Login não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
 
+    public ResponseEntity userToLogin(String login) {
+        Mensagem mensagem = new Mensagem();
+
+        if (login.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Login não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var user = dadosUsuarioRepository.findAllByUserLogin(removerAcentosEspacoBranco(
                 login.toUpperCase()));
 
-        if(user.isEmpty())
-            return new ResponseEntity(String.format("O Login %s não existe!",login.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (user.isEmpty()) {
+            mensagem.setMessage(String.format("O Login %s não existe!", login.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-    public ResponseEntity userToEmail(String email){
-        if(email.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Email não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
 
+    public ResponseEntity userToEmail(String email) {
+        Mensagem mensagem = new Mensagem();
+
+        if (email.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Email não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var user = dadosUsuarioRepository.findByEmail(removerAcentosEspacoBranco(
                 email.toUpperCase()));
 
-        if(user == null)
-            return new ResponseEntity(String.format("O email %s não existe!",email.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (user == null) {
+            mensagem.setMessage(String.format("O email %s não existe!", email.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-    public ResponseEntity userToLoginEmail(String loginEmail){
-        if(loginEmail.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Login ou email não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
 
+    public ResponseEntity userToLoginEmail(String loginEmail) {
+        Mensagem mensagem = new Mensagem();
+
+        if (loginEmail.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Login ou email não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var user = dadosUsuarioRepository.findByEmail(removerAcentosEspacoBranco(
                 loginEmail.toUpperCase()));
 
-        if(user == null){
+        if (user == null) {
             user = dadosUsuarioRepository.findByUserLogin(removerAcentosEspacoBranco(
                     loginEmail.toUpperCase()));
 
-            if(user == null)
-                return new ResponseEntity(String.format("O login ou email %s não existe!",loginEmail.toUpperCase()),HttpStatus.NOT_FOUND);
+            if (user == null) {
+                mensagem.setMessage(String.format("O login ou email %s não existe!", loginEmail.toUpperCase()));
+                return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+            }
         }
 
 
@@ -123,97 +160,129 @@ public class BuscasService {
     //produto
     @Autowired
     private ProdutoRepository produtoRepository;
+
     public ResponseEntity listaProdutos() {
 
-        var listaProduto =  produtoRepository.findAll();
+        Mensagem mensagem = new Mensagem();
 
-        if(listaProduto.isEmpty())
-            return new ResponseEntity("Lista produto vazia!",HttpStatus.NOT_FOUND);
+        var listaProduto = produtoRepository.findAll();
 
+        if (listaProduto.isEmpty()) {
+            mensagem.setMessage("Lista produto vazia!");
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(listaProduto, HttpStatus.OK);
     }
-    public ResponseEntity listaProdutosToTipo(String tipo){
 
-        if(tipo.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Tipo não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity listaProdutosToTipo(String tipo) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (tipo.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Tipo não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var listaProdutoToTipo = produtoRepository.findAllByTipoProdutoContaining(
                 removerAcentosEspacoBranco(tipo.toUpperCase()));
 
-        if(listaProdutoToTipo.isEmpty())
-            return new ResponseEntity(String.format("O produtos do %s não existe!",tipo.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (listaProdutoToTipo.isEmpty()) {
+            mensagem.setMessage(String.format("O produtos do %s não existe!", tipo.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(listaProdutoToTipo, HttpStatus.OK);
     }
-    public ResponseEntity produtoToNome(String nome){
 
-        if(nome.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Nome não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity produtoToNome(String nome) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (nome.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Nome não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var produtoToNome = produtoRepository.findByNome(removerAcentosEspacoBranco(
                 nome.toUpperCase()));
 
-        if(produtoToNome == null)
-            return new ResponseEntity(String.format("O produtos do %s não existe!",nome.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (produtoToNome == null) {
+            mensagem.setMessage(String.format("O produtos do %s não existe!", nome.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(produtoToNome, HttpStatus.OK);
     }
-    public ResponseEntity listaProdutoToNome(String nome){
 
-        if(nome.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Nome não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity listaProdutoToNome(String nome) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (nome.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Nome não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var produto = produtoRepository.findAllByNomeContaining(removerAcentosEspacoBranco(
                 nome.toUpperCase()));
 
-        if(produto.isEmpty())
-            return new ResponseEntity(String.format("O produto %s não existe!",nome.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (produto.isEmpty()) {
+            mensagem.setMessage(String.format("O produto %s não existe!", nome.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(produto, HttpStatus.OK);
     }
-    public ResponseEntity produtoToId(String id){
 
-        if(id.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity produtoToId(String id) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (id.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var produto = produtoRepository.findById(id);
 
-        if(produto.isEmpty())
-            return new ResponseEntity(String.format("O produto com id %s não existe!",id.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (produto.isEmpty()){
+            mensagem.setMessage(String.format("O produto com id %s não existe!", id.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+    }
         return new ResponseEntity<>(produto, HttpStatus.OK);
     }
-    public ResponseEntity produtoToGtin(String gtin){
 
-        if(gtin.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Código de barras não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity produtoToGtin(String gtin) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (gtin.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Código de barras não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var produto = produtoRepository.findByGtin(gtin.toUpperCase());
 
-        if(produto == null)
-            return new ResponseEntity(String.format("O produto com código de barras %s não existe!",gtin.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (produto == null){
+            mensagem.setMessage(String.format("O produto com código de barras %s não existe!", gtin.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+    }
         return new ResponseEntity<>(produto, HttpStatus.OK);
     }
 
     //produtoApiExterna
     @Autowired
     private ProdutosApiExternaService produtosApiExternaService;
-    public ResponseEntity buscaProdutoApiExterna(String gtin){
 
-        if(gtin.replace(" ","").isEmpty())
-            return new ResponseEntity(
-                    String.format("O código de barras esta vázio"),
+    public ResponseEntity buscaProdutoApiExterna(String gtin) {
+
+        Mensagem mensagem = new Mensagem();
+
+        if (gtin.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("O código de barras esta vázio"));
+            return new ResponseEntity<>(
+                    mensagem,
                     HttpStatus.NOT_ACCEPTABLE);
-
-        try
-        {
+        }
+        try {
             ProdutoApiExterna produtoSalvar = new ProdutoApiExterna();
 
-            Triplet<RestTemplate,UriComponents,HttpEntity> resultProdutoApiExtrena =
+            Triplet<RestTemplate, UriComponents, HttpEntity> resultProdutoApiExtrena =
                     produtosApiExternaService.resultQueryProdutoApiExterna("gtins/%s",
                             removerAcentosEspacoBranco(gtin));
             ResponseEntity<ProdutoApiExterna> produtoApiExternaResponse =
@@ -225,13 +294,14 @@ public class BuscasService {
 
             produtoSalvar = produtoApiExternaResponse.getBody();
 
-            Produto  produtoNew = produtosApiExternaService.produto(produtoSalvar);
+            Produto produtoNew = produtosApiExternaService.produto(produtoSalvar);
 
-            return new ResponseEntity(produtoNew, HttpStatus.OK);
-        }
-        catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc){
-            return new ResponseEntity(
-                    String.format("Api externa de Consulta de produto: %s",httpClientOrServerExc.getMessage()),
+            return new ResponseEntity<>(produtoNew, HttpStatus.OK);
+
+        } catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
+            mensagem.setMessage(String.format("Api externa de Consulta de produto: %s", httpClientOrServerExc.getMessage()));
+            return new ResponseEntity<>(
+                    mensagem,
                     httpClientOrServerExc.getStatusCode());
         }
     }
@@ -239,125 +309,176 @@ public class BuscasService {
     //emprasa
     @Autowired
     private EmpresaRepository empresaRepository;
+
     public ResponseEntity listaEmpresas() {
 
-        var listaEmpresa =  empresaRepository.findAll();
+        Mensagem mensagem = new Mensagem();
 
-        if(listaEmpresa.isEmpty())
-            return new ResponseEntity("Lista empresa vazia!",HttpStatus.NOT_FOUND);
+        var listaEmpresa = empresaRepository.findAll();
 
+        if (listaEmpresa.isEmpty()) {
+            mensagem.setMessage("Lista empresa vazia!");
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(listaEmpresa, HttpStatus.OK);
     }
-    public ResponseEntity empresaToId(String id){
 
-        if(id.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity empresaToId(String id) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (id.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var empresa = empresaRepository.findById(id);
 
-        if(empresa.isEmpty())
-            return new ResponseEntity(String.format("A empresa com id %s não existe!",id.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (empresa.isEmpty()){
+            mensagem.setMessage(String.format("A empresa com id %s não existe!", id.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+    }
         return new ResponseEntity<>(empresa, HttpStatus.OK);
     }
-    public ResponseEntity empresaToCnpj(String cnpj){
 
-        if(cnpj.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Cnpj não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity empresaToCnpj(String cnpj) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (cnpj.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Cnpj não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var empresa = empresaRepository.findByCnpj(cnpj);
 
-        if(empresa == null)
-            return new ResponseEntity(String.format("A empresa com cnpj %s não existe!",cnpj.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (empresa == null) {
+            mensagem.setMessage(String.format("A empresa com cnpj %s não existe!", cnpj.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(empresa, HttpStatus.OK);
     }
-    public ResponseEntity empresaToNome(String nome){
 
-        if(nome.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Nome não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity empresaToNome(String nome) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (nome.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Nome não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var empresa = empresaRepository.findByNome(removerAcentosEspacoBranco(nome.toUpperCase()));
 
-        if(empresa == null)
-            return new ResponseEntity(String.format("A empresa %s não existe!",nome.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (empresa == null) {
+            mensagem.setMessage(String.format("A empresa %s não existe!", nome.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(empresa, HttpStatus.OK);
     }
-    public ResponseEntity empresaToFantasia(String fantasia){
 
-        if(fantasia.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Nome fantasia não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity empresaToFantasia(String fantasia) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (fantasia.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Nome fantasia não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var empresa = empresaRepository.findByFantasia(removerAcentosEspacoBranco(fantasia.toUpperCase()));
 
-        if(empresa == null)
-            return new ResponseEntity(String.format("A empresa com nome fantasia %s não existe!",fantasia.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (empresa == null) {
+            mensagem.setMessage(String.format("A empresa com nome fantasia %s não existe!", fantasia.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(empresa, HttpStatus.OK);
     }
-    public ResponseEntity listaEmpresaToNome(String nome){
 
-        if(nome.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Nome não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity listaEmpresaToNome(String nome) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (nome.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Nome não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var empresa = empresaRepository.findAllByNomeContaining(removerAcentosEspacoBranco(
                 nome.toUpperCase()));
 
-        if(empresa.isEmpty())
-            return new ResponseEntity(String.format("A empresa %s não existe!",nome.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (empresa.isEmpty()) {
+            mensagem.setMessage(String.format("A empresa %s não existe!", nome.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(empresa, HttpStatus.OK);
     }
-    public ResponseEntity listaEmpresaToFantasia(String fantasia){
 
-        if(fantasia.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Nome fantasia não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity listaEmpresaToFantasia(String fantasia) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (fantasia.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Nome fantasia não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var empresa = empresaRepository.findAllByFantasiaContaining(removerAcentosEspacoBranco(
                 fantasia.toUpperCase()));
 
-        if(empresa.isEmpty())
-            return new ResponseEntity(String.format("O empresa com nome fantasia %s não existe!",fantasia.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (empresa.isEmpty()) {
+            mensagem.setMessage(String.format("O empresa com nome fantasia %s não existe!", fantasia.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(empresa, HttpStatus.OK);
     }
-    public ResponseEntity listaEmpresaToUf(String uf){
 
-        if(uf.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Uf não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity listaEmpresaToUf(String uf) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (uf.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Uf não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var empresa = empresaRepository.findAllByUfContaining(removerAcentosEspacoBranco(
                 uf.toUpperCase()));
 
-        if(empresa.isEmpty())
-            return new ResponseEntity(String.format("O empresa com uf %s não existe!",uf.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (empresa.isEmpty()) {
+            mensagem.setMessage(String.format("O empresa com uf %s não existe!", uf.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(empresa, HttpStatus.OK);
     }
-    public ResponseEntity listaEmpresaToMunicipio(String municipio){
 
-        if(municipio.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Municipio não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity listaEmpresaToMunicipio(String municipio) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (municipio.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Municipio não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var empresa = empresaRepository.findAllByMunicipioContaining(removerAcentosEspacoBranco(
                 municipio.toUpperCase()));
 
-        if(empresa.isEmpty())
-            return new ResponseEntity(String.format("O empresa com municipio %s não existe!",municipio.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (empresa.isEmpty()) {
+            mensagem.setMessage(String.format("O empresa com municipio %s não existe!", municipio.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(empresa, HttpStatus.OK);
     }
-    public ResponseEntity listaEmpresaToUfMunicipio(String uf, String municipio){
 
-        if(uf.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Uf não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
-        if(municipio.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Municipio não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity listaEmpresaToUfMunicipio(String uf, String municipio) {
+
+        Mensagem mensagem = new Mensagem();
+
+        if (uf.replace(" ", "").isEmpty()){
+            mensagem.setMessage(String.format("Uf não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
+        if (municipio.replace(" ", "").isEmpty()){
+            mensagem.setMessage(String.format("Municipio não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         var empresaUf = empresaRepository.findAllByUfContaining(removerAcentosEspacoBranco(
                 uf.toUpperCase()));
@@ -365,14 +486,16 @@ public class BuscasService {
         List<Empresa> empresa = new ArrayList<>();
 
         for (Empresa emp : empresaUf) {
-            if(removerAcentosEspacoBranco(emp.getMunicipio()).toUpperCase().
+            if (removerAcentosEspacoBranco(emp.getMunicipio()).toUpperCase().
                     contains(removerAcentosEspacoBranco(municipio).toUpperCase()))
                 empresa.add(emp);
         }
 
 
-        if(empresa.isEmpty())
-            return new ResponseEntity(String.format("O empresa com uf %s do municipio %s não existe!",uf.toUpperCase(),municipio.toUpperCase()),HttpStatus.NOT_FOUND);
+        if (empresa.isEmpty()) {
+            mensagem.setMessage(String.format("O empresa com uf %s do municipio %s não existe!", uf.toUpperCase(), municipio.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity<>(empresa, HttpStatus.OK);
     }
@@ -380,18 +503,22 @@ public class BuscasService {
     //empresaApiExterna
     @Autowired
     private EmpresasApiExternaService empresasApiExternaService;
-    public ResponseEntity buscaEmpresaApiExterna(String cnpj){
 
-        if(cnpj.replace(" ","").isEmpty())
-            return new ResponseEntity(
-                    String.format("O cnpj esta vázio"),
+    public ResponseEntity buscaEmpresaApiExterna(String cnpj) {
+
+        Mensagem mensagem = new Mensagem();
+
+        if (cnpj.replace(" ", "").isEmpty()){
+            mensagem.setMessage(String.format("O cnpj esta vázio"));
+            return new ResponseEntity<>(
+                    mensagem,
                     HttpStatus.NOT_ACCEPTABLE);
+        }
 
-        try
-        {
+        try {
             EmpresaApiExterna empresaSalvar = new EmpresaApiExterna();
 
-            Triplet<RestTemplate,UriComponents,HttpEntity> resultEmpresaApiExtrena =
+            Triplet<RestTemplate, UriComponents, HttpEntity> resultEmpresaApiExtrena =
                     empresasApiExternaService.resultQueryEmpresaApiExterna("/v1/cnpj/",
                             removerAcentosEspacoBranco(cnpj));
             ResponseEntity<EmpresaApiExterna> empresaApiExternaResponse =
@@ -405,14 +532,17 @@ public class BuscasService {
 
             Empresa empresaNew = empresasApiExternaService.empresa(empresaSalvar);
 
-            if(empresaNew == null)
-                return new ResponseEntity(String.format("A empresa com cnpj %s não existe!",cnpj),HttpStatus.NOT_FOUND);
+            if (empresaNew == null) {
+                mensagem.setMessage(String.format("A empresa com cnpj %s não existe!", cnpj));
+                return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+            }
 
-            return new ResponseEntity(empresaNew, HttpStatus.OK);
-        }
-        catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc){
-            return new ResponseEntity(
-                    String.format("Api externa de Consulta de produto: %s",httpClientOrServerExc.getMessage()),
+            return new ResponseEntity<>(empresaNew, HttpStatus.OK);
+
+        } catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
+            mensagem.setMessage(String.format("Api externa de Consulta de produto: %s", httpClientOrServerExc.getMessage()));
+            return new ResponseEntity<>(
+                    mensagem,
                     httpClientOrServerExc.getStatusCode());
         }
     }
@@ -420,208 +550,279 @@ public class BuscasService {
     //preco
     @Autowired
     private PrecoRepository precoRepository;
+
     public ResponseEntity listaPreco() {
 
-        var listaPreco =  precoRepository.findAll();
+        Mensagem mensagem = new Mensagem();
 
-        if(listaPreco.isEmpty())
-            return new ResponseEntity("Lista preços vazia!",HttpStatus.NOT_FOUND);
+        var listaPreco = precoRepository.findAll();
+
+        if (listaPreco.isEmpty()){
+            mensagem.setMessage("Lista preços vazia!");
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity<>(listaPreco, HttpStatus.OK);
     }
-    public ResponseEntity precoToId(String id){
 
-        if(id.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity precoToId(String id) {
+        Mensagem mensagem = new Mensagem();
 
+        if (id.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var preco = precoRepository.findById(id);
 
-        if(preco.isEmpty())
-            return new ResponseEntity(String.format("O preço com id %s não existe!",id.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (preco.isEmpty()) {
+            mensagem.setMessage(String.format("O preço com id %s não existe!", id.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(preco, HttpStatus.OK);
     }
-    public ResponseEntity precoToIdPro(String idProduto){
 
-        if(idProduto.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id do produto não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity precoToIdPro(String idProduto) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (idProduto.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id do produto não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         Produto produto = produtoRepository.findById(idProduto).orElse(null);
-        if(produto == null)
-            return new ResponseEntity(String.format("Id %s produto não encontrado!",idProduto),HttpStatus.NOT_FOUND);
+        if (produto == null) {
+            mensagem.setMessage(String.format("Id %s produto não encontrado!", idProduto));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
+
         var preco = precoRepository.findAllByProdutoId(idProduto);
 
-        if(preco.size() < 0)
-            return new ResponseEntity(String.format("O preço dos produtos %s com id s% não existe!",
-                    produto.getNome().toUpperCase(),idProduto.toUpperCase()),HttpStatus.NOT_FOUND);
+        if (preco.size() < 0){
+            mensagem.setMessage(String.format("O preço dos produtos %s com id s% não existe!",
+                    produto.getNome().toUpperCase(), idProduto.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity<>(preco, HttpStatus.OK);
     }
-    public ResponseEntity precoToIdEmp(String idEmpresa){
 
-        if(idEmpresa.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id da empresa não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity precoToIdEmp(String idEmpresa) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (idEmpresa.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id da empresa não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         Empresa empresa = empresaRepository.findById(idEmpresa).orElse(null);
-        if(empresa == null)
-            return new ResponseEntity(String.format("Id %s empresa não encontrado!",idEmpresa),HttpStatus.NOT_FOUND);
+        if (empresa == null) {
+            mensagem.setMessage(String.format("Id %s empresa não encontrado!", idEmpresa));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         var preco = precoRepository.findAllByEmpresaId(idEmpresa);
 
-        if(preco.size() < 0)
-            return new ResponseEntity(String.format("O preço das empresas %s com id %s não existe!",
+        if (preco.size() < 0) {
+            mensagem.setMessage(String.format("O preço das empresas %s com id %s não existe!",
                     empresa.getNome().toUpperCase(),
-                    idEmpresa.toUpperCase()),HttpStatus.NOT_FOUND);
-
+                    idEmpresa.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(preco, HttpStatus.OK);
     }
-    public ResponseEntity precoToIdPrePro(String idPreco,String idProduto){
 
-        if(idPreco.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id do preço não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
-        if(idProduto.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id do produto não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity precoToIdPrePro(String idPreco, String idProduto) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (idPreco.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id do preço não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
+        if (idProduto.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id do produto não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var preco = precoRepository.findById(idPreco);
-        if(preco.isEmpty())
-            return new ResponseEntity(String.format("O preço com id %s não existe!",idPreco.toUpperCase()),HttpStatus.NOT_FOUND);
 
+        if (preco.isEmpty()) {
+            mensagem.setMessage(String.format("O preço com id %s não existe!", idPreco.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         Produto produto = produtoRepository.findById(idProduto).orElse(null);
-        if(produto == null)
-            return new ResponseEntity(String.format("Id %s produto não encontrado!",idProduto),HttpStatus.NOT_FOUND);
 
+        if (produto == null) {
+            mensagem.setMessage(String.format("Id %s produto não encontrado!", idProduto));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         var precosProduto = precoRepository.findAllByProdutoId(idProduto);
 
-        if(precosProduto.size() < 0)
-            return new ResponseEntity(String.format("O preço dos produtos %s com id s% não existe!",
-                    produto.getNome().toUpperCase(),idProduto.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (precosProduto.size() < 0) {
+            mensagem.setMessage(String.format("O preço dos produtos %s com id s% não existe!",
+                    produto.getNome().toUpperCase(), idProduto.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         Preco precoEncontrado = new Preco();
-        for(Preco pre : precosProduto){
-            if(pre.getId().equals(preco.get().getId()))
+        for (Preco pre : precosProduto) {
+            if (pre.getId().equals(preco.get().getId()))
                 precoEncontrado = pre;
         }
 
-        if(precoEncontrado == null)
-            return new ResponseEntity(String.format("O preço com produto s% não existe!",
-                    produto.getNome().toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (precoEncontrado == null) {
+            mensagem.setMessage(String.format("O preço com produto s% não existe!",
+                    produto.getNome().toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity<>(precoEncontrado, HttpStatus.OK);
     }
-    public ResponseEntity precoToIdPreEmp(String idPreco,String idEmpresa){
 
-        if(idPreco.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id do preço não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
-        if(idEmpresa.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id da empresa não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity precoToIdPreEmp(String idPreco, String idEmpresa) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (idPreco.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id do preço não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
+        if (idEmpresa.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id da empresa não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         var preco = precoRepository.findById(idPreco);
-        if(preco.isEmpty())
-            return new ResponseEntity(String.format("O preço com id %s não existe!",idPreco.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (preco.isEmpty()) {
+            mensagem.setMessage(String.format("O preço com id %s não existe!", idPreco.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         Empresa empresa = empresaRepository.findById(idEmpresa).orElse(null);
-        if(empresa == null)
-            return new ResponseEntity(String.format("Id %s empresa não encontrado!",idEmpresa),HttpStatus.NOT_FOUND);
-
+        if (empresa == null) {
+            mensagem.setMessage(String.format("Id %s empresa não encontrado!", idEmpresa));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         var precosEmpresa = precoRepository.findAllByEmpresaId(idEmpresa);
 
-        if(precosEmpresa.size() < 0)
-            return new ResponseEntity(String.format("O preço das empresas %s com id s% não existe!",
-                    empresa.getNome().toUpperCase(),idEmpresa.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (precosEmpresa.size() < 0) {
+            mensagem.setMessage(String.format("O preço das empresas %s com id s% não existe!",
+                    empresa.getNome().toUpperCase(), idEmpresa.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         Preco precoEncontrado = new Preco();
-        for(Preco pre : precosEmpresa){
-            if(pre.getId().equals(preco.get().getId()))
+        for (Preco pre : precosEmpresa) {
+            if (pre.getId().equals(preco.get().getId()))
                 precoEncontrado = pre;
         }
-        if(precoEncontrado == null)
-            return new ResponseEntity(String.format("O preço com empresa s% não existe!",
-                    empresa.getNome().toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (precoEncontrado == null) {
+            mensagem.setMessage(String.format("O preço com empresa s% não existe!",
+                    empresa.getNome().toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity<>(precoEncontrado, HttpStatus.OK);
     }
-    public ResponseEntity precoToIdProEmp(String idProduto,String idEmpresa){
 
-        if(idProduto.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id do produto não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
-        if(idEmpresa.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id da empresa não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity precoToIdProEmp(String idProduto, String idEmpresa) {
 
+        Mensagem mensagem = new Mensagem();
+
+        if (idProduto.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id do produto não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
+        if (idEmpresa.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id da empresa não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         Produto produto = produtoRepository.findById(idProduto).orElse(null);
-        if(produto == null)
-            return new ResponseEntity(String.format("O produto com id %s não existe!",idProduto.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (produto == null) {
+            mensagem.setMessage(String.format("O produto com id %s não existe!", idProduto.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         Empresa empresa = empresaRepository.findById(idEmpresa).orElse(null);
-        if(empresa == null)
-            return new ResponseEntity(String.format("Id %s empresa não encontrado!",idEmpresa),HttpStatus.NOT_FOUND);
-
+        if (empresa == null) {
+            mensagem.setMessage(String.format("Id %s empresa não encontrado!", idEmpresa));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         var precosProduto = precoRepository.findAllByProdutoId(idProduto);
 
-        if(precosProduto.size() < 0)
-            return new ResponseEntity(String.format("O preço dos produtos %s com id s% não existe!",
-                    produto.getNome().toUpperCase(),idProduto.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (precosProduto.size() < 0) {
+            mensagem.setMessage(String.format("O preço dos produtos %s com id s% não existe!",
+                    produto.getNome().toUpperCase(), idProduto.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         var precosEmpresa = precoRepository.findAllByEmpresaId(idEmpresa);
 
-        if(precosEmpresa.size() < 0)
-            return new ResponseEntity(String.format("O preço das empresas %s com id s% não existe!",
-                    empresa.getNome().toUpperCase(),idEmpresa.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (precosEmpresa.size() < 0) {
+            mensagem.setMessage(String.format("O preço das empresas %s com id s% não existe!",
+                    empresa.getNome().toUpperCase(), idEmpresa.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         List<Preco> precosEncontrado = new ArrayList<>();
-        for(Preco prePro : precosProduto){
-            for(Preco preEmp: precosEmpresa){
-            if(prePro.getId().equals(preEmp.getId())){
-                precosEncontrado.add(prePro);}}
+        for (Preco prePro : precosProduto) {
+            for (Preco preEmp : precosEmpresa) {
+                if (prePro.getId().equals(preEmp.getId())) {
+                    precosEncontrado.add(prePro);
+                }
+            }
         }
 
-        if(precosEncontrado.size() < 0)
-            return new ResponseEntity(String.format("O preço da empresa %s com produto s% não existe!",
-                    empresa.getNome().toUpperCase(),produto.getNome().toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (precosEncontrado.size() < 0) {
+            mensagem.setMessage(String.format("O preço da empresa %s com produto s% não existe!",
+                    empresa.getNome().toUpperCase(), produto.getNome().toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(precosEncontrado, HttpStatus.OK);
     }
-    public ResponseEntity precoToIdPreProEmp(String idPreco, String idProduto,String idEmpresa){
 
-        if(idPreco.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id do preço não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity precoToIdPreProEmp(String idPreco, String idProduto, String idEmpresa) {
 
-        if(idProduto.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id do produto não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
-        if(idEmpresa.replace(" ","").isEmpty())
-            return new ResponseEntity(String.format("Id da empresa não pode ser vazio"),HttpStatus.NOT_ACCEPTABLE);
+        Mensagem mensagem = new Mensagem();
 
+        if (idPreco.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id do preço não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
+        if (idProduto.replace(" ", "").isEmpty()){
+            mensagem.setMessage(String.format("Id do produto não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
+        if (idEmpresa.replace(" ", "").isEmpty()) {
+            mensagem.setMessage(String.format("Id da empresa não pode ser vazio"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         Produto produto = produtoRepository.findById(idProduto).orElse(null);
-        if(produto == null)
-            return new ResponseEntity(String.format("O produto com id %s não existe!",idProduto.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (produto == null) {
+            mensagem.setMessage(String.format("O produto com id %s não existe!", idProduto.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         Empresa empresa = empresaRepository.findById(idEmpresa).orElse(null);
-        if(empresa == null)
-            return new ResponseEntity(String.format("Id %s empresa não encontrado!",idEmpresa),HttpStatus.NOT_FOUND);
-
+        if (empresa == null) {
+            mensagem.setMessage(String.format("Id %s empresa não encontrado!", idEmpresa));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         var preco = precoRepository.findById(idPreco);
-        if(preco.isEmpty())
-            return new ResponseEntity(String.format("O preço com id %s não existe!",idPreco.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (preco.isEmpty()) {
+            mensagem.setMessage(String.format("O preço com id %s não existe!", idPreco.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         var precosProduto = precoRepository.findAllByProdutoId(idProduto);
 
-        if(precosProduto.size() < 0)
-            return new ResponseEntity(String.format("O preço dos produtos %s com id s% não existe!",
-                    produto.getNome().toUpperCase(),idProduto.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (precosProduto.size() < 0) {
+            mensagem.setMessage(String.format("O preço dos produtos %s com id s% não existe!",
+                    produto.getNome().toUpperCase(), idProduto.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         var precosEmpresa = precoRepository.findAllByEmpresaId(idEmpresa);
 
-        if(precosEmpresa.size() < 0)
-            return new ResponseEntity(String.format("O preço das empresas %s com id s% não existe!",
-                    empresa.getNome().toUpperCase(),idEmpresa.toUpperCase()),HttpStatus.NOT_FOUND);
-
+        if (precosEmpresa.size() < 0) {
+            mensagem.setMessage(String.format("O preço das empresas %s com id s% não existe!",
+                    empresa.getNome().toUpperCase(), idEmpresa.toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
         Preco precoEncontrado = new Preco();
-        for(Preco prePro : precosProduto){
-            for(Preco preEmp: precosEmpresa){
-                if(prePro.getId().equals(preEmp.getId()))
-                {
-                    if(prePro.getId().equals(preco.get().getId())){
+        for (Preco prePro : precosProduto) {
+            for (Preco preEmp : precosEmpresa) {
+                if (prePro.getId().equals(preEmp.getId())) {
+                    if (prePro.getId().equals(preco.get().getId())) {
                         precoEncontrado = prePro;
                     }
                 }
@@ -629,11 +830,12 @@ public class BuscasService {
         }
 
 
-        if(precoEncontrado == null)
-            return new ResponseEntity(String.format("O preço com produto s% e empresa %s não existe!",
+        if (precoEncontrado == null) {
+            mensagem.setMessage(String.format("O preço com produto s% e empresa %s não existe!",
                     produto.getNome().toUpperCase(),
-                    empresa.getNome().toUpperCase()),HttpStatus.NOT_FOUND);
-
+                    empresa.getNome().toUpperCase()));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity<>(precoEncontrado, HttpStatus.OK);
     }

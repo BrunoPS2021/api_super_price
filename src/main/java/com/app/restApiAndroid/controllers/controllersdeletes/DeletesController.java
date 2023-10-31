@@ -1,5 +1,6 @@
 package com.app.restApiAndroid.controllers.controllersdeletes;
 
+import com.app.restApiAndroid.models.Mensagem;
 import com.app.restApiAndroid.services.servicesdeletes.DeletesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,10 +36,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaUsuarioToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarUserToId(@RequestParam String id) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarUserToId(id);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o usuário pelo nome do login app super price",
@@ -54,10 +57,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaUsuarioToLogin}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarUserToLogin(@RequestParam String login) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarUserToLogin(login);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -75,10 +80,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaProdutoToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarProdutoToId(@RequestParam String id) {
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarProdutoToId(id);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o produto pelo código de barras app super price",
@@ -94,10 +101,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaProdutoToGtin}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarProdutoToGtin(@RequestParam String gtin){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarProdutoToGtin(gtin);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -115,10 +124,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaEmpresaToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarEmpresaToId(@RequestParam String id){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarEmpresaToId(id);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o empresa pelo cnpj app super price",
@@ -134,10 +145,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaEmpresaToCnpj}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarEmpresaToCnpj(@RequestParam String cnpj){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarEmpresaToCnpj(cnpj);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o empresa pelo nome app super price",
@@ -153,10 +166,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaEmpresaToNome}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletaEmpresaToNome(@RequestParam String nome){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarEmpresaToNome(nome);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o empresa pelo nome fantasia app super price",
@@ -172,10 +187,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaEmpresaToFantasia}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarEmpresaToFantasia(@RequestParam String fantasia){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarEmpresaToFantasia(fantasia);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -193,10 +210,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaPrecoToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarPrecoToId(@RequestParam String id){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarPrecoToId(id);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o preço pelo Id produto app super price",
@@ -212,10 +231,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaPrecoToIdPro}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarPrecoToIdPro(@RequestParam String idProduto){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarPrecoToIdPro(idProduto);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o preço pelo Id da empresa app super price",
@@ -231,10 +252,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaPrecoToIdEmp}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarPrecoToIdEmp(@RequestParam String idEmpresa){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarPrecoToIdEmp(idEmpresa);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o preço pelo Id produto e Id Empresa app super price",
@@ -250,10 +273,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaPrecoToIdProEmp}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarPrecoToIdProEmp(@RequestParam String idProduto,@RequestParam String idEmpresa){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarPrecoToIdProEmp(idProduto,idEmpresa);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o preço pelo Id preço e Id Empresa app super price",
@@ -269,10 +294,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaPrecoToIdPreEmp}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarPrecoToIdPreEmp(@RequestParam String idPreco,@RequestParam String idEmpresa){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarPrecoToIdPreEmp(idPreco,idEmpresa);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o preço pelo Id preço e Id produto app super price",
@@ -288,10 +315,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaPrecoToIdPrePro}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarPrecoToIdPrePro(@RequestParam String idPreco,@RequestParam String idProduto){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarPrecoToIdPrePro(idPreco,idProduto);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Deletar o preço pelo Id do preço, Id produto e Id empresa app super price",
@@ -307,10 +336,12 @@ public class DeletesController {
             })
     @DeleteMapping(value = "${route.deletaPrecoToIdPreProEmp}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletarPrecoToIdPreProEmp(@RequestParam String idPreco,@RequestParam String idProduto,@RequestParam String idEmpresa){
+        Mensagem mensagem = new Mensagem();
         try {
             return deletesService.deletarPrecoToIdPreProEmp(idPreco,idProduto,idEmpresa);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

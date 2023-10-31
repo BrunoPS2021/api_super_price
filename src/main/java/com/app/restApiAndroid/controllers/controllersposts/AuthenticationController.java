@@ -1,5 +1,6 @@
 package com.app.restApiAndroid.controllers.controllersposts;
 
+import com.app.restApiAndroid.models.Mensagem;
 import com.app.restApiAndroid.models.dots.AuthenticationDTO;
 import com.app.restApiAndroid.services.servicesposts.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,10 +42,12 @@ public class AuthenticationController {
             })
     @PostMapping(value = "${route.autenticacaoLogin}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity login(@RequestBody @Validated AuthenticationDTO data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Mensagem mensagem = new Mensagem();
         try {
             return authenticationService.login(data);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

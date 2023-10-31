@@ -1,6 +1,7 @@
 package com.app.restApiAndroid.services.servicesposts;
 
 import com.app.restApiAndroid.infra.security.TokenService;
+import com.app.restApiAndroid.models.Mensagem;
 import com.app.restApiAndroid.models.dots.AuthenticationDTO;
 import com.app.restApiAndroid.models.dots.LoginResponseDTO;
 import com.app.restApiAndroid.models.usuario.Usuario;
@@ -30,20 +31,23 @@ public class AuthenticationService {
     @Autowired
     private ValidateInfoUsuarioService validateInfoUsuarioService;
     public ResponseEntity login(AuthenticationDTO data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        if(data == null)
-            return new ResponseEntity(String.format("Informe os dados no formato Json"),HttpStatus.NOT_ACCEPTABLE);
-
+        Mensagem mensagem = new Mensagem();
+        if(data == null) {
+            mensagem.setMessage(String.format("Informe os dados no formato Json"));
+            return new ResponseEntity<>(mensagem, HttpStatus.NOT_ACCEPTABLE);
+        }
         ValidationsDTO info = validateInfoUsuarioService.validInformations(null, usuarioRepository,null,data,2,null,null);
 
-        if(!info.valid())
-            return new ResponseEntity(info.message(),info.statusCode());
-
+        if(!info.valid()) {
+            mensagem.setMessage(info.message());
+            return new ResponseEntity<>(mensagem, info.statusCode());
+        }
         var userNamePassword = new UsernamePasswordAuthenticationToken(data.login().toUpperCase(),data.password());
         var auth = this.authenticationManager.authenticate(userNamePassword);
         var token = this.tokenService.generateToken((Usuario) auth.getPrincipal());
 
 
-        return new ResponseEntity(new LoginResponseDTO(token), HttpStatus.OK);
+        return new ResponseEntity<>(new LoginResponseDTO(token), HttpStatus.OK);
     }
 
 }

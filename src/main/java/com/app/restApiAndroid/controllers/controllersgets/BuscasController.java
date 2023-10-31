@@ -1,5 +1,6 @@
 package com.app.restApiAndroid.controllers.controllersgets;
 
+import com.app.restApiAndroid.models.Mensagem;
 import com.app.restApiAndroid.services.servicesgets.BuscasService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,10 +36,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaUsuarios}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listUser() {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listUser();
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna a lista dos usuários especificado por nome do app super price")
@@ -54,10 +57,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaUsuarioToNome}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listUserToName(@RequestParam String name) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listUserToName(name);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o usuario especificado por nome do app super price")
@@ -73,10 +78,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaUsuarioToNome}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity userToName(@RequestParam String nome) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.userToName(nome);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o usuário especificado por login do app super price")
@@ -92,10 +99,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaUsuarioToLogin}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity userToLogin(@RequestParam String login) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.userToLogin(login);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o usuário especificado por email do app super price")
@@ -111,10 +120,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaUsuarioToEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity userToEmail(@RequestParam String email) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.userToEmail(email);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o usuário especificado por login ou email do app super price")
@@ -130,10 +141,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaUsuarioToLoginEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity userToLoginEmail(@RequestParam String loginEmail) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.userToLoginEmail(loginEmail);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o usuário especificado por ID do app super price")
@@ -149,10 +162,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaUsuarioToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity userToId(@RequestParam String id) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.userToId(id);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -170,10 +185,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaProdutos}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listaProdutos() {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listaProdutos();
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Buscar lista de produtos pelo tipo do app super price")
@@ -189,10 +206,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaProdutosToTipo}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listaProdutosToTipo(@RequestParam String tipo) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listaProdutosToTipo(tipo);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o produto especificado por nome do app super price")
@@ -208,10 +227,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaProdutoToNome}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity produtoToNome(@RequestParam String nome) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.produtoToNome(nome);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna a lista dos produtos especificado por nome do app super price")
@@ -227,10 +248,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaProdutoToNome}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listaProdutoToNome(@RequestParam String nome) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listaProdutoToNome(nome);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o produto especificado por ID do app super price")
@@ -246,10 +269,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaProdutoToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity produtoToId(@RequestParam String id) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.produtoToId(id);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o produto especificado pelo código de barras do app super price")
@@ -265,10 +290,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaProdutoToGtin}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity produtoToGtin(@RequestParam String gtin) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.produtoToGtin(gtin);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -286,10 +313,12 @@ public class BuscasController {
             })
     @GetMapping(value = "${route.buscaProdutoApiExterna}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity buscaProdutoApiExterna(@RequestParam(required = true) String gtin) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.buscaProdutoApiExterna(gtin);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -307,10 +336,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaEmpresas}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listaEmpresas() {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listaEmpresas();
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna a empresa especificado por ID do app super price")
@@ -326,10 +357,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaEmpresaToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity empresaToId(@RequestParam String id) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.empresaToId(id);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna a empresa especificado por cnpj do app super price")
@@ -345,10 +378,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaEmpresaToCnpj}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity empresaToCnpj(@RequestParam String cnpj) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.empresaToCnpj(cnpj);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna a empresa especificado por nome do app super price")
@@ -364,10 +399,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaEmpresaToNome}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity empresaToNome(@RequestParam String nome) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.empresaToNome(nome);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna a empresa especificado por nome fantasia do app super price")
@@ -383,10 +420,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaEmpresaToFantasia}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity empresaToFantasia(@RequestParam String fantasia) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.empresaToFantasia(fantasia);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Buscar lista de empresas pelo nome do app super price")
@@ -402,10 +441,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaEmpresaToNome}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listaEmpresaToNome(@RequestParam String nome) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listaEmpresaToNome(nome);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Buscar lista de empresas pelo nome fantasia do app super price")
@@ -421,10 +462,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaEmpresaToFantasia}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listaEmpresaToFantasia(@RequestParam String fantasia) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listaEmpresaToFantasia(fantasia);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Buscar lista de empresas pelo uf do app super price")
@@ -440,10 +483,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaEmpresaToUf}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listaEmpresaToUf(@RequestParam String uf) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listaEmpresaToUf(uf);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Buscar lista de empresas pelo municipio do app super price")
@@ -459,10 +504,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaEmpresaToMunicipio}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listaEmpresaToMunicipio(@RequestParam String municipio) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listaEmpresaToMunicipio(municipio);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Buscar lista de empresas pelo uf e municipio do app super price")
@@ -478,10 +525,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaEmpresaToUfMunicipio}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listaEmpresaToUfMunicipio(@RequestParam String uf,@RequestParam String municipio) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listaEmpresaToUfMunicipio(uf,municipio);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -499,10 +548,12 @@ public class BuscasController {
             })
     @GetMapping(value = "${route.buscaEmpresaApiExterna}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity buscaEmpresaApiExterna(@RequestParam(required = true) String cnpj) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.buscaEmpresaApiExterna(cnpj);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -520,10 +571,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaPrecos}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listPreco() {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.listaPreco();
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o preço por ID do app super price")
@@ -539,10 +592,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaPrecoToId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity precoToId(@RequestParam String id) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.precoToId(id);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o preço por ID do produto do app super price")
@@ -558,10 +613,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaPrecoToIdPro}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity precoToIdPro(@RequestParam String idProduto) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.precoToIdPro(idProduto);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Buscar lista de preço por ID da empresa do app super price")
@@ -577,10 +634,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaPrecoToIdEmp}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity precoToIdEmp(@RequestParam String idEmpresa) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.precoToIdEmp(idEmpresa);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o preço por ID do preço e ID do produto do app super price")
@@ -596,10 +655,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaPrecoToIdPrePro}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity precoToIdPrePro(@RequestParam String idPreco,@RequestParam String idProduto) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.precoToIdPrePro(idPreco,idProduto);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o preço por ID do preço e ID da empresa do app super price")
@@ -615,10 +676,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaPrecoToIdPreEmp}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity precoToIdPreEmp(@RequestParam String idPreco,@RequestParam String idEmpresa) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.precoToIdPreEmp(idPreco,idEmpresa);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna lista de preços por ID do produto e ID da empresa do app super price")
@@ -634,10 +697,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaListaPrecoToIdProEmp}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity precoToIdProEmp(@RequestParam String idProduto,@RequestParam String idEmpresa) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.precoToIdProEmp(idProduto,idEmpresa);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @Operation(summary = "Retorna o preço por ID do preço, ID do Produto e ID da empresa do app super price")
@@ -653,10 +718,12 @@ public class BuscasController {
     })
     @GetMapping(value = "${route.buscaPrecoToIdPreProEmp}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity precoToIdPreProEmp(@RequestParam String idPreco,@RequestParam String idProduto,@RequestParam String idEmpresa) {
+        Mensagem mensagem = new Mensagem();
         try {
             return buscasService.precoToIdPreProEmp(idPreco,idProduto,idEmpresa);
         } catch (Exception erro) {
-            return new ResponseEntity(String.format("Erro não mapeado: " + erro.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            mensagem.setMessage(String.format("Erro não mapeado: " + erro.getMessage()));
+            return new ResponseEntity<>(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
